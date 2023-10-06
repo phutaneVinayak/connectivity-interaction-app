@@ -1,0 +1,68 @@
+name: javabase-connector
+description: java base language support connector
+triggers:
+- "/v1/get_latest_activity"
+- "/v2/get_latest_activity"
+actions:
+- name: get_new_feed
+  version: v1
+  description: dfsdf
+  input:
+    title: Get New feed
+    type: object
+    properties:
+      input_one:
+        type: string
+        title: First Input
+        description: My first INPUT
+        minLength: 1
+      input_two:
+        type: string
+        title: second Input
+        description: My second INPUT
+        minLength: 1
+- name: get_new_feed
+  version: v2
+  description: dfsdf
+  input:
+    title: get_new_feed
+    type: object
+    properties:
+      input_three:
+        type: string
+        title: First Input
+        description: My first INPUT
+        minLength: 1
+version: '1'
+oauth_provider: ''
+auth_type: apikey
+auth_data:
+  input:
+    title: Connect to golang-connector
+    type: object
+    mock_input:
+      api_key: APPLICATION_API_KEY
+    properties:
+      api_key:
+        title: API Key
+        type: string
+        format: password
+        minLength: 1
+        propertyOrder: 1
+doc_link: ''
+icon: ''
+lookup: false
+appId: 
+guid: 
+buildId: 
+connection: 
+lookup_attachments: []
+  # - lookup_id: ""
+  #   trigger_id: ""
+  #   field_id: ""
+  #   dependencies:
+  #     - "auth"
+  # - lookup_id: ""
+  #   trigger_id: ""
+  #   field_id: ""
+  #   dependencies: []
