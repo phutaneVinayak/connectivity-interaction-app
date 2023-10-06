@@ -80,7 +80,10 @@
 FROM maven:latest as builder
 
 #add sag user
-RUN addgroup --group --gid 1726 sagadmin && \
+# RUN addgroup --group --gid 1726 sagadmin && \
+#     adduser --disabled-login -u 1726 --ingroup sagadmin sagadmin
+
+RUN addgroup --gid 1726 sagadmin && \
     adduser --disabled-login -u 1726 --ingroup sagadmin sagadmin
 
 #create directory and set user ownerchip
