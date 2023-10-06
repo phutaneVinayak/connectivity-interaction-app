@@ -52,8 +52,8 @@ auth_data:
 doc_link: ''
 icon: "sdfsd"
 lookup: false
-appId: "cfdd57d7-b7e8-4928-a608-bb5ed9b06146",
-guid: "1ec2c4cc-7b3e-4298-852b-d978b10a4624",
+appId: "cfdd57d7-b7e8-4928-a608-bb5ed9b06146"
+guid: "1ec2c4cc-7b3e-4298-852b-d978b10a4624"
 buildId: "" 
 connection: "" 
 lookup_attachments: []
