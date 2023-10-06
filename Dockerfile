@@ -123,7 +123,7 @@ COPY --from=builder /home/sagadmin/opt/app/target/quarkus-app/quarkus/ /home/sag
 EXPOSE 8080
 # USER 185
 # Set the environment variable to specify the Vert.x cache directory
-# ENV VERTX_OPTS "-Dvertx.cacheDirBase=/home/sagadmin/opt/app/"
+ENV VERTX_OPTS "-Dvertx.cacheDirBase=/home/sagadmin/opt/app/"
 ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dvertx.cacheDirBase=/home/sagadmin/opt/app/ -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/home/sagadmin/opt/app/quarkus-run.jar"
