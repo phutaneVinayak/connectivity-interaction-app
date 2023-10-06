@@ -84,7 +84,7 @@ FROM maven:latest as builder
 #     adduser --disabled-login -u 1726 --ingroup sagadmin sagadmin
 
 RUN addgroup --gid 1726 sagadmin && \
-    adduser --disabled-login -u 1726 --ingroup sagadmin sagadmin
+    adduser --disabled-login -u 1726 --ingroup sagadmin --gecos "sagadmin User,,123,456,Other Info"  sagadmin
 
 #create directory and set user ownerchip
 RUN mkdir -p /opt/app/ && chown sagadmin:sagadmin /opt/app/
