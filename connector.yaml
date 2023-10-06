@@ -52,10 +52,10 @@ auth_data:
 doc_link: ''
 icon: ''
 lookup: false
-appId: 
-guid: 
-buildId: 
-connection: 
+appId: ""
+guid: ""
+buildId: "" 
+connection: "" 
 lookup_attachments: []
   # - lookup_id: ""
   #   trigger_id: ""
