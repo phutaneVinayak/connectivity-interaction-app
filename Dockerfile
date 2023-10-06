@@ -77,22 +77,53 @@
 #   accessed directly. (example: "foo.example.com,bar.example.com")
 #
 ###
-FROM registry.access.redhat.com/ubi8/openjdk-11:1.16
+FROM maven:latest as builder
+
+#add sag user
+RUN addgroup --group --gid 1726 sagadmin && \
+    adduser --disabled-password -u 1726 --ingroup sagadmin sagadmin
+
+#create directory and set user ownerchip
+RUN mkdir -p /opt/app/ && chown sagadmin:sagadmin /opt/app/
+
+# Copy local code to the container image.
+WORKDIR /opt/app/
+
+COPY pom.xml /opt/app/pom.xml
+
+COPY src /opt/app/src
 
 ENV LANGUAGE='en_US:en'
 
+# Build a release artifact.
+# RUN mvn package -DskipTests
+RUN mvn -f /opt/app/pom.xml clean package
+
+# Use the Official OpenJDK image for a lean production stage of our multi-stage build.
+# https://hub.docker.com/_/openjdk
+# https://docs.docker.com/develop/develop-images/multistage-build/#use-multi-stage-builds
+# FROM openjdk:11-jre-slim-stretch 
+FROM registry.access.redhat.com/ubi8/openjdk-11:1.16
+
+# openjdk:8-jre-alpine
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+# --chown=185
+
+COPY --from=builder /opt/app/target/quarkus-app/lib/ /opt/app/lib/
+COPY --from=builder /opt/app/target/quarkus-app/*.jar /opt/app/
+COPY --from=builder /opt/app/target/quarkus-app/app/ /opt/app/app/
+COPY --from=builder /opt/app/target/quarkus-app/quarkus/ /opt/app/quarkus/
+
+
 
 EXPOSE 8080
-USER 185
+# USER 185
 ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+
+ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
 
 ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
 
