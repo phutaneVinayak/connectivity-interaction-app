@@ -77,7 +77,8 @@
 #   accessed directly. (example: "foo.example.com,bar.example.com")
 #
 ###
-FROM maven:latest as builder
+FROM maven:latest  
+# as builder
 
 #add sag user
 RUN addgroup --group --gid 1726 sagadmin && \
@@ -109,11 +110,11 @@ FROM registry.access.redhat.com/ubi8/openjdk-11:1.16
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
 # --chown=185
-
-COPY --from=builder /opt/app/target/quarkus-app/lib/ /opt/app/lib/
-COPY --from=builder /opt/app/target/quarkus-app/*.jar /opt/app/
-COPY --from=builder /opt/app/target/quarkus-app/app/ /opt/app/app/
-COPY --from=builder /opt/app/target/quarkus-app/quarkus/ /opt/app/quarkus/
+#--from=builder
+COPY  /opt/app/target/quarkus-app/lib/ /opt/app/lib/
+COPY  /opt/app/target/quarkus-app/*.jar /opt/app/
+COPY  /opt/app/target/quarkus-app/app/ /opt/app/app/
+COPY  /opt/app/target/quarkus-app/quarkus/ /opt/app/quarkus/
 
 
 
