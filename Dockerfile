@@ -81,7 +81,7 @@ FROM maven:latest as builder
 
 #add sag user
 RUN addgroup --group --gid 1726 sagadmin && \
-    adduser --disabled-password -u 1726 --ingroup sagadmin sagadmin
+    adduser --disabled-login -u 1726 --ingroup sagadmin sagadmin
 
 #create directory and set user ownerchip
 RUN mkdir -p /opt/app/ && chown sagadmin:sagadmin /opt/app/
