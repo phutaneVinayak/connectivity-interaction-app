@@ -33,8 +33,8 @@ actions:
         title: First Input
         description: My first INPUT
         minLength: 1
-version: '1'
-oauth_provider: ''
+version: "1"
+oauth_provider: ""
 auth_type: apikey
 auth_data:
   input:
@@ -49,13 +49,13 @@ auth_data:
         format: password
         minLength: 1
         propertyOrder: 1
-doc_link: ''
-icon: ''
+doc_link: ""
+icon: ""
 lookup: false
-appId: 
-guid: 
-buildId: 
-connection: 
+appId: ""
+guid: ""
+buildId: "" 
+connection: "" 
 lookup_attachments: []
   # - lookup_id: ""
   #   trigger_id: ""
