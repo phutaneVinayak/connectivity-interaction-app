@@ -87,20 +87,20 @@ RUN addgroup --gid 1726 sagadmin && \
     adduser --disabled-login -u 1726 --ingroup sagadmin --gecos "sagadmin User,,123,456,Other Info"  sagadmin
 
 #create directory and set user ownerchip
-RUN mkdir -p /opt/app/ && chown sagadmin:sagadmin /opt/app/
+RUN mkdir -p /home/sagadmin/opt/app/ && chown sagadmin:sagadmin /home/sagadmin/opt/app/
 
 # Copy local code to the container image.
-WORKDIR /opt/app/
+WORKDIR /home/sagadmin/opt/app/
 
-COPY pom.xml /opt/app/pom.xml
+COPY pom.xml ./
 
-COPY src /opt/app/src
+COPY src ./
 
 ENV LANGUAGE='en_US:en'
 
 # Build a release artifact.
 # RUN mvn package -DskipTests
-RUN mvn -f /opt/app/pom.xml clean package
+RUN mvn -f pom.xml clean package
 
 # Use the Official OpenJDK image for a lean production stage of our multi-stage build.
 # https://hub.docker.com/_/openjdk
@@ -113,10 +113,10 @@ FROM registry.access.redhat.com/ubi8/openjdk-11:1.16
 # We make four distinct layers so if there are application changes the library layers can be re-used
 # --chown=185
 #--from=builder
-COPY --from=builder /opt/app/target/quarkus-app/lib/ /opt/app/lib/
-COPY --from=builder /opt/app/target/quarkus-app/*.jar /opt/app/
-COPY --from=builder /opt/app/target/quarkus-app/app/ /opt/app/app/
-COPY --from=builder /opt/app/target/quarkus-app/quarkus/ /opt/app/quarkus/
+COPY --from=builder /home/sagadmin/opt/app/target/quarkus-app/lib/ /home/sagadmin/opt/app/lib/
+COPY --from=builder /home/sagadmin/opt/app/target/quarkus-app/*.jar /home/sagadmin/opt/app/
+COPY --from=builder /home/sagadmin/opt/app/target/quarkus-app/app/ /home/sagadmin/opt/app/app/
+COPY --from=builder /home/sagadmin/opt/app/target/quarkus-app/quarkus/ /home/sagadmin/opt/app/quarkus/
 
 
 
@@ -124,9 +124,6 @@ EXPOSE 8080
 # USER 185
 ENV AB_JOLOKIA_OFF=""
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+ENV JAVA_APP_JAR="/home/sagadmin/opt/app/quarkus-run.jar"
 
 ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
-
-ENTRYPOINT [ "/opt/jboss/container/java/run/run-java.sh" ]
-
