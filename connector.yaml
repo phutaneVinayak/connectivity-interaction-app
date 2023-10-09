@@ -3,10 +3,13 @@ description: java base language support connector
 triggers:
 - "/v1/get_latest_activity"
 - "/v2/get_latest_activity"
+actionmeta:
+  - "/v1/getLocationInfo"
+  - "/v2/getLocationInfo"
 actions:
-- name: get_new_feed
+- name: getLocationInfo
   version: v1
-  description: dfsdf
+  description: Java base cli connectors
   input:
     title: Get New feed
     type: object
@@ -33,12 +36,12 @@ actions:
         title: First Input
         description: My first INPUT
         minLength: 1
-version: '1'
-oauth_provider: ''
+version: "1"
+oauth_provider: ""
 auth_type: apikey
 auth_data:
   input:
-    title: Connect to golang-connector
+    title: Connect to connectivity-integration-app
     type: object
     mock_input:
       api_key: APPLICATION_API_KEY
@@ -49,13 +52,13 @@ auth_data:
         format: password
         minLength: 1
         propertyOrder: 1
-doc_link: ''
-icon: "sdfsd"
+doc_link: ""
+icon: "custom"
 lookup: false
-appId: "cfdd57d7-b7e8-4928-a608-bb5ed9b06146"
-guid: "1ec2c4cc-7b3e-4298-852b-d978b10a4624"
+appId: ""
+guid: ""
 buildId: "" 
-connection: "javabase-connector-dT2St8Bn4"
+connection: ""
 lookup_attachments: []
   # - lookup_id: ""
   #   trigger_id: ""
