@@ -24,7 +24,7 @@ actions:
         title: second Input
         description: My second INPUT
         minLength: 1
-- name: get_new_feed
+- name: getLocationInfo
   version: v2
   description: dfsdf
   input:
